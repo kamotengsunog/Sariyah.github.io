@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sariaya Info</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Consolas, sans-serif;
+      background-image: url('lalala.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .sidebar {
+      width: 200px;
+      height: 950px;
+      background-color: rgba(102, 92, 92, 0.8);
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 35px;
+      padding: 20px;
+      background-color: #926513;
+      color: white;
+      border-radius: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar li:hover {
+      background-color: #eb9b06;
+    }
+
+    .center-container {
+      position: absolute;
+      top: 10%;
+      left: 20%;
+      background-color: rgba(102, 92, 92, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      width: 68%;
+      height: 77%;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .center-text {
+      font-size: 24px;
+      line-height: 2;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 75%;
+      max-height: 90%;
+      background-color: rgba(102, 92, 92, 0.95);
+      color: white;
+      z-index: 1000;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-y: auto;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 900;
+    }
+
+    .description {
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .images {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .img-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 45%;
+    }
+
+    .img-caption {
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .img-box {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+    }
+
+    .img-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70%;
+      margin: 0 auto;
+    }
+    .start-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #926513;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: Consolas;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .start-button:hover {
+      background-color: #dda030;
+    }
+
+    .additional-image {
+      margin-top: 20px;
+      background-repeat: no-repeat;
+      width: 60%;
+      height: 200px;
+      background-position: center;
+      border-radius: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tile {
+      font-size: 20px;
+      color: whitesmoke;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .con {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .close-button {
+      padding: 10px 20px;
+      background-color: #926513;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: Consolas;
+      cursor: pointer;
+    }
+
+    .close-button:hover {
+      background-color: #dda030;
+    }
+    .center-text {
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .sidebar li {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+      }
+
+      .center-container {
+        position: static;
+        width: 95%;
+        height: auto;
+        margin: 20px auto;
+        padding: 5px;
+      }
+
+      .center-text {
+        font-size: 18px;
+      }
+
+      .popup {
+        width: 90%;
+        padding: 15px;
+      }
+
+      .images {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .img-column {
+        width: 100%;
+      }
+
+      .start-button {
+        width: 100%;
+      }
+
+      .additional-image {
+        width: 100%;
+        height: 180px;
+      }
+
+      .tile {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="center-container">
+    <p class="center-text">
+      The origin of the name "Sariaya" is surrounded by various legends, folktales, and stories passed down through generations. One account links the name to an old river called “Sadyaya,” which gradually evolved into “Sariaya” over time, especially after the arrival of the Spaniards—a shift considered natural by the people of Batangas. Another tale suggests that the name came from a local woman named Saria. According to the story, a lost Spanish soldier asked her for the name of the town, but she misunderstood and gave her own name instead, leading to the town being called “Sariaya.” A third version tells of Moro pirates who frequently raided the area. During one such attack, they looted the public office and chapel, searching for riches. Instead of treasures, they discovered documents outlining the town’s local laws, which they found to be exceptionally fair. Impressed, the pirates remarked that although the town was poor, it had just laws, and they referred to it as “Shariah,” a Muslim term meaning “good law,” which some believe became the town’s name.
+    </p>
+  </div>
+  <ul>
+    <li onclick="showPopup(popupData[0])">Sariaya Heritage</li>
+    <li onclick="showPopup(popupData[1])">Sariaya Tour Spots</li>
+    <li onclick="showPopup(popupData[2])">Town Landmarks</li>
+    <li onclick="showPopup(popupData[3])">Sariaya History/Festivals</li>
+    <li onclick="showPopup(popupData[4])">Sariaya Natural Attractions</li>
+  </ul>
+</div>
+
+<div class="overlay" id="overlay" onclick="hidePopup()"></div>
+
+<div class="popup" id="popup">
+  <h2 id="popupTitle"></h2>
+  <p class="description" id="popupText"></p>
+  <div class="images" id="popupImages"></div>
+
+  <div id="extraContainer" style="display: none;">
+    <p class="tile" id="extraCaption"></p>
+    <div class="img-column">
+    <div class="additional-image" id="additionalImage"></div>
+    <button class="start-button" id="popupLink3">Start Level</button>
+    </div>
+  </div>
+
+  <div class="con">
+    <button class="close-button" onclick="hidePopup()">Close</button>
+  </div>
+</div>
+
+<script>
+  const popupData = [
+    {
+      text: [
+        "Saint Francis of Assisi Parish Church",
+        "Don Catalino Rodriguez Ancestral House"
+      ],
+      images: ["church.jpg", "don.jpg"],
+      link1: "Sariyah3.html",
+      link2: "Sariyah5.html",
+      link3: "Sariyah7.html",
+      extra: "gala.jpg",
+      extraCaption: "Gala–Rodriguez Ancestral House",
+    },
+    {
+      text: [
+        "Ancestral Houses",
+        "Balai Sadyaya Resort"
+      ],
+      images: ["ancestral.jpg", "Balai.jpg"],
+      link1: "Sariyah9.html",
+      link2: "Sariyah11.html",
+      link3: "Sariyah13.html",
+      extra: "enri.jpg",
+      extraCaption: "Enriquez Gala Ancestral Mansion",
+    },
+    {
+      text: [
+        "Sariaya Municipal Hall",
+        "Quezon Park"
+      ],
+      images: ["municipal.jpg", "Park.jpg"],
+      link1: "Sariyah15.html",
+      link2: "Sariyah17.html",
+      link3: "Sariyah19.html",
+      extra: "jollibee.jpg",
+      extraCaption: "Jollibee",
+    },
+    {
+      text: [
+        "ilog Sadyaya",
+        "Augustrinians"
+      ],
+      images: ["Sadyaya.jpg", "alt.png"],
+      link1: "Sariyah21.html",
+      link2: "Sariyah23.html",
+      link3: "Sariyah25.html",
+      extra: "agawan.jpg",
+      extraCaption: "San Isidro/ Agawan Festival",
+    },
+    {
+      text: [
+        "Mt. Banahaw",
+        "Dalampasigan Beach Resort"
+      ],
+      images: ["banahaw.jpg", "dalampasigan.jpg"],
+      link1: "Sariyah27.html",
+      link2: "Sariyah29.html",
+      link3: "Sariyah31.html",
+      extra: "costa.jpg",
+      extraCaption: "Costa Sariya Beach Resort",
+    },
+  ];
+
+  function showPopup(data) {
+    document.getElementById('popupTitle').innerText = data.title || '';
+    document.getElementById('popupText').innerText = '';
+    document.getElementById('popupImages').innerHTML = '';
+    document.getElementById('popupLink3').style.display = "none";
+    document.getElementById('extraContainer').style.display = 'none';
+
+    if (Array.isArray(data.text)) {
+      data.images.forEach((img, i) => {
+        const column = document.createElement('div');
+        column.className = 'img-column';
+
+        const caption = document.createElement('p');
+        caption.className = 'img-caption';
+        caption.innerText = data.text[i] || '';
+
+        const imageBox = document.createElement('div');
+        imageBox.className = 'img-box';
+        imageBox.style.backgroundImage = `url('${img}')`;
+
+        const button = document.createElement('button');
+        button.className = 'start-button';
+        button.innerText = 'Start Level';
+        button.onclick = () => window.location.href = data[`link${i + 1}`];
+
+        column.appendChild(caption);
+        column.appendChild(imageBox);
+        column.appendChild(button);
+
+        document.getElementById('popupImages').appendChild(column);
+      });
+
+      if (data.extra && data.link3) {
+        const extraImg = document.getElementById('additionalImage');
+        const extraCaption = document.getElementById('extraCaption');
+
+        extraImg.style.backgroundImage = `url('${data.extra}')`;
+        extraCaption.innerText = data.extraCaption || '';
+
+        document.getElementById('popupLink3').onclick = () => window.location.href = data.link3;
+        document.getElementById('extraContainer').style.display = "block";
+        document.getElementById('popupLink3').style.display = "inline-block";
+      }
+
+    }
+
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  }
+
+  function hidePopup() {
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

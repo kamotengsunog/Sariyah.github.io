@@ -1,0 +1,253 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1!</title>
+        <style>
+            body {
+                font-family: Verdana;
+                text-align: center;
+                color: #0c67ae;
+                background-image: url('Ser.jpg');
+                background-size: cover;
+                margin-top: 30px;
+            }
+            #title {
+                height: 150px;
+                width: 400px;
+                mix-blend-mode: multiply;
+            }
+
+            #timer {
+             font-size: 2em;
+            font-family: Arial, sans-serif;
+             color: #333;
+             margin-top: 20px;
+            font-family: Verdana;
+            color: black;
+    }
+            #board{
+                width: 360px;
+                height: 360px;
+                background-color: blanchedalmond;
+                border: 5px solid #0c67ae;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2px;
+                margin: 0 auto;
+            }
+            .tile {
+                width: 118px;
+                height: 118px;
+                border: 1px solid #0c67ae;
+                box-sizing: border-box;
+                cursor: pointer;
+            }
+            .drag-over {
+            outline: 3px dashed wheat;
+            }
+
+            #nextBoton {
+                display: none;
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                display: none;
+                transition: background-color 0.3s;
+            }
+            #nextBoton:hover {
+                background-color: #0056b3;
+            }
+            #dawanenonly {
+                display: none;
+                font-size: 1rem;
+                padding: 10px 20px;
+                margin-top: 50px;
+                color: black;
+            }
+            .button {
+            font-family: Verdana;
+            padding: 10px 20px;
+            margin: 0;
+            margin-top: 100px;
+            margin-left: 1150px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            margin-top: 50px;
+            font-family: Consolas;
+            color: rgb(255, 255, 255);
+        }
+        .class  {
+          backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+
+        #timer {
+            font-size: 1.5em;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        #nextBoton, #dawanenonly {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+        }
+      }
+        </style>
+
+    </head>
+
+    <body>
+      <div class="class">
+      <h2>Timer:</h2>
+          <div id="timer">00:00:00</div>
+            <div id="board"></div>
+            </div>
+            <button id="nextBoton" onclick="goToNext()">Next</button>
+            <br/>
+            <p id="dawanenonly">Congratulations on completing the puzzle lets move on to the next level!</p>
+
+  <script>
+    let seconds = 0;
+
+    function formatTime(s) {
+      const hrs = String(Math.floor(s / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const secs = String(s % 60).padStart(2, '0');
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    setInterval(() => {
+      seconds++;
+      document.getElementById('timer').textContent = formatTime(seconds);
+    }, 1000);
+
+  const correctOrder = [
+  "costa1.jpg", "costa2.jpg", "costa3.jpg", "costa4.jpg", "costa5.jpg", "costa6.jpg", "costa7.jpg", "costa8.jpg", "costa9.jpg"
+];
+
+let tiles = [...correctOrder];
+let draggedTile = null;
+let draggedIndex = null;
+let touchStartIndex = null;
+const board = document.getElementById("board");
+const nextBtn = document.getElementById("nextBoton");
+const message = document.getElementById("dawanenonly");
+
+tiles.sort(() => Math.random() - 0.5);
+
+function drawBoard() {
+  board.innerHTML = "";
+  tiles.forEach((src, index) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "tile";
+    img.draggable = true;
+    img.dataset.index = index;
+
+    img.addEventListener("dragstart", dragStart);
+    img.addEventListener("dragenter", dragEnter);
+    img.addEventListener("dragover", dragOver);
+    img.addEventListener("dragleave", dragLeave);
+    img.addEventListener("drop", drop);
+    img.addEventListener("dragend", dragEnd);
+
+    img.addEventListener("touchstart", touchStart, { passive: true });
+    img.addEventListener("touchend", touchEnd, { passive: true });
+
+    board.appendChild(img);
+  });
+
+  checkIfSolved();
+}
+
+function dragStart(e) {
+  draggedTile = e.target;
+  draggedIndex = e.target.dataset.index;
+}
+
+function dragEnter(e) {
+  e.preventDefault();
+  e.target.classList.add("drag-over");
+}
+
+function dragOver(e) {
+  e.preventDefault();
+}
+
+function dragLeave(e) {
+  e.target.classList.remove("drag-over");
+}
+
+function drop(e) {
+  e.preventDefault();
+  e.target.classList.remove("drag-over");
+
+  const targetTile = e.target;
+  const targetIndex = targetTile.dataset.index;
+
+  [tiles[draggedIndex], tiles[targetIndex]] = [tiles[targetIndex], tiles[draggedIndex]];
+  drawBoard();
+}
+
+function dragEnd() {
+  draggedTile = null;
+  draggedIndex = null;
+}
+
+function touchStart(e) {
+  const target = e.target;
+  touchStartIndex = target.dataset.index;
+}
+
+function touchEnd(e) {
+  const touch = e.changedTouches[0];
+  const endElem = document.elementFromPoint(touch.clientX, touch.clientY);
+
+  if (endElem && endElem.classList.contains("tile")) {
+    const targetIndex = endElem.dataset.index;
+    if (touchStartIndex !== null && targetIndex !== undefined) {
+      [tiles[touchStartIndex], tiles[targetIndex]] = [tiles[targetIndex], tiles[touchStartIndex]];
+      drawBoard();
+    }
+  }
+  touchStartIndex = null;
+}
+
+function checkIfSolved() {
+  const isSolved = tiles.every((val, idx) => val === correctOrder[idx]);
+  if (isSolved) {
+    nextBtn.style.display = "inline-block";
+    message.style.display = "inline-block";
+  }
+}
+
+function goToNext() {
+  window.location.href = "Sariyah2.html";
+}
+
+drawBoard();
+
+        </script>
+    </body>
+</html>

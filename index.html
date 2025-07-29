@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sariyah</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .background-image {
+      background-image: url('Sar.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 20px;
+      border-radius: 20px;
+      color: white;
+    }
+
+    .one {
+      font-family: Consolas, monospace;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      backdrop-filter: blur(4px);
+    }
+
+    .two {
+      font-family: Consolas, monospace;
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      backdrop-filter: blur(4px);
+    }
+
+    .containerone {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 0 auto 20px auto;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .button {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-family: Consolas, monospace;
+      border: none;
+      border-radius: 6px;
+      background-color: rgb(17, 175, 51);
+      color: black;
+      cursor: not-allowed;
+      transition: background-color 0.3s ease;
+    }
+
+    .button.active {
+      cursor: pointer;
+    }
+
+    .button:hover:enabled {
+      background-color: rgb(14, 155, 45);
+    }
+
+    @media (min-width: 768px) {
+      .one {
+        font-size: 3rem;
+      }
+
+      .two {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-image">
+    <div class="container">
+      <p class="one">Welcome Dear Player</p>
+      <p class="two">Are you ready to challenge your mind and solve exciting puzzles? Join us for an adventure filled with fun and brain teasing challenges.</p>
+      <div class="containerone">
+        <div class="input-field">
+          <label for="username" style="display: none;">Username</label>
+          <input type="text" id="username" placeholder="Enter Your Username" />
+        </div>
+      </div>
+      <button class="button" id="submitButton" onclick="openNewPage()" disabled>Start</button>
+    </div>
+  </div>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+    const submitButton = document.getElementById('submitButton');
+
+    usernameInput.addEventListener('input', function () {
+      if (usernameInput.value.trim() !== '') {
+        submitButton.classList.add('active');
+        submitButton.disabled = false;
+      } else {
+        submitButton.classList.remove('active');
+        submitButton.disabled = true;
+      }
+    });
+
+    function openNewPage() {
+      if (!submitButton.disabled) {
+        window.location.href = 'Sariyah1.html';
+      }
+    }
+  </script>
+</body>
+</html>

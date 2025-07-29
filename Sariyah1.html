@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: url('Starr.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+      font-family: Verdana, sans-serif;
+    }
+
+    .one {
+      font-size: 2.5rem;
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .floating-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .box {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .Sariyah {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      max-width: 300px;
+      margin-top: 20px;
+    }
+
+    .start-button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .start-button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (min-width: 768px) {
+      .one {
+        font-size: 3rem;
+        color: black;
+        margin: 40px 20px;
+      }
+
+      .box {
+        width: 80px;
+        height: 80px;
+      }
+
+      .Sariyah {
+        font-size: 2rem;
+      }
+
+      .start-button {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="one">Welcome to</p>
+
+  <div class="floating-boxes">
+    <div class="box"><p class="Sariyah">S</p></div>
+    <div class="box"><p class="Sariyah">A</p></div>
+    <div class="box"><p class="Sariyah">R</p></div>
+    <div class="box"><p class="Sariyah">I</p></div>
+    <div class="box"><p class="Sariyah">Y</p></div>
+    <div class="box"><p class="Sariyah">A</p></div>
+    <div class="box"><p class="Sariyah">H</p></div>
+  </div>
+
+  <div class="button-container">
+    <button class="start-button" onclick="window.location.href='Sariyah2.html';">
+      ➡ Start Playing
+    </button>
+  </div>
+
+</body>
+</html>
